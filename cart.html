@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Form</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    
+    <div class="form-container">
+        <br><br>
+        <img src="images/GADGET STORE.png" alt="Brand Logo" class="logo">
+        <form id="orderForm" onsubmit="return validateForm()">
+            <h2>Place Your Order</h2>
+            
+            <div class="form-group">
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name" required>
+                <small>Error message</small>
+            </div>
+            
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+                <small>Error message</small>
+            </div>
+            
+            <div class="form-group">
+                <label for="mobile">Mobile Number:</label>
+                <input type="text" id="mobile" name="mobile" required>
+                <small>Error message</small>
+            </div>
+            
+            <div class="form-group">
+                <label for="address">Address:</label>
+                <input type="text" id="address" name="address" required>
+                <small>Error message</small>
+            </div>
+            
+            <div class="form-group">
+                <label for="state">State:</label>
+                <input type="text" id="state" name="state" required>
+                <small>Error message</small>
+            </div>
+            
+            <div class="form-group">
+                <label for="country">Country:</label>
+                <input type="text" id="country" name="country" required>
+                <small>Error message</small>
+            </div>
+            
+            <div class="form-group">
+                <label for="pincode">Pincode:</label>
+                <input type="text" id="pincode" name="pincode" required>
+                <small>Error message</small>
+            </div>
+            
+            <button type="submit">Place Order</button>
+        </form>
+    </div>
+
+    <div id="popup" class="popup">
+        <div class="popup-content">
+            <p>The order has been placed and will be delivered to you in a few days.</p>
+            <button onclick="closePopup()">Close</button>
+            <a href="index.html"><button>Go Home</button></a>
+        </div>
+    </div>
+
+    <script src="scripts.js"></script>
+</body>
+</html>
+<style>
+    body {
+    font-family: Arial, sans-serif;
+    background-color: #f2f2f2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.form-container {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+}
+
+.logo {
+    max-width: 100px;
+    margin-bottom: 20px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group {
+    margin-bottom: 15px;
+    text-align: left;
+}
+
+label {
+    margin-bottom: 5px;
+}
+
+input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+button {
+    padding: 10px;
+    background-color: #3b3f3c;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #1d1e1d;
+}
+
+small {
+    color: red;
+    visibility: hidden;
+}
+
+.popup {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    justify-content: center;
+    align-items: center;
+}
+
+.popup-content {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    text-align: center;
+}
+
+.popup-content button {
+    padding: 10px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.popup-content button:hover {
+    background-color: #218838;
+}
+
+</style>
+<script>
+    function validateForm() {
+    let isValid = true;
+
+    const name = document.getElementById('name');
+    const email = document.getElementById('email');
+    const mobile = document.getElementById('mobile');
+    const address = document.getElementById('address');
+    const state = document.getElementById('state');
+    const country = document.getElementById('country');
+    const pincode = document.getElementById('pincode');
+
+    const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+    const mobilePattern = /^\d{10}$/;
+    const pincodePattern = /^\d{6}$/;
+
+    if (name.value.trim() === '') {
+        showError(name, 'Name is required');
+        isValid = false;
+    } else {
+        hideError(name);
+    }
+
+    if (!emailPattern.test(email.value)) {
+        showError(email, 'Invalid email address');
+        isValid = false;
+    } else {
+        hideError(email);
+    }
+
+    if (!mobilePattern.test(mobile.value)) {
+        showError(mobile, 'Invalid mobile number');
+        isValid = false;
+    } else {
+        hideError(mobile);
+    }
+
+    if (address.value.trim() === '') {
+        showError(address, 'Address is required');
+        isValid = false;
+    } else {
+        hideError(address);
+    }
+
+    if (state.value.trim() === '') {
+        showError(state, 'State is required');
+        isValid = false;
+    } else {
+        hideError(state);
+    }
+
+    if (country.value.trim() === '') {
+        showError(country, 'Country is required');
+        isValid = false;
+    } else {
+        hideError(country);
+    }
+
+    if (!pincodePattern.test(pincode.value)) {
+        showError(pincode, 'Invalid pincode');
+        isValid = false;
+    } else {
+        hideError(pincode);
+    }
+
+    if (isValid) {
+        showPopup();
+    }
+
+    return false; // Prevent form submission for demonstration
+}
+
+function showError(input, message) {
+    const formGroup = input.parentElement;
+    const small = formGroup.querySelector('small');
+    small.textContent = message;
+    small.style.visibility = 'visible';
+}
+
+function hideError(input) {
+    const formGroup = input.parentElement;
+    const small = formGroup.querySelector('small');
+    small.style.visibility = 'hidden';
+}
+
+function showPopup() {
+    const popup = document.getElementById('popup');
+    popup.style.display = 'flex';
+}
+
+function closePopup() {
+    const popup = document.getElementById('popup');
+    popup.style.display = 'none';
+}
+
+</script>

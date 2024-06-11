@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="login-container">
+        <img src="images/GADGET STORE.png" alt="Brand Logo" class="logo">
+        <form id="loginForm" onsubmit="return validateLoginForm()">
+            <h2>Login</h2>
+            
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+                <small>Error message</small>
+            </div>
+            
+            <div class="form-group">
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" required>
+                <small>Error message</small>
+            </div>
+            
+            <a href="index.html"><button type="submit">Login</button></a>
+        </form>
+    </div>
+    <script src="scripts.js"></script>
+</body>
+
+
+</html>
+<script>
+    function validateLoginForm() {
+    let isValid = true;
+
+    const email = document.getElementById('email');
+    const password = document.getElementById('password');
+
+    const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+
+    if (!emailPattern.test(email.value)) {
+        showError(email, 'Invalid email address');
+        isValid = false;
+    } else {
+        hideError(email);
+    }
+
+    if (password.value.trim() === '') {
+        showError(password, 'Password is required');
+        isValid = false;
+    } else {
+        hideError(password);
+    }
+
+    return isValid;
+}
+
+function showError(input, message) {
+    const formGroup = input.parentElement;
+    const small = formGroup.querySelector('small');
+    small.textContent = message;
+    small.style.visibility = 'visible';
+}
+
+function hideError(input) {
+    const formGroup = input.parentElement;
+    const small = formGroup.querySelector('small');
+    small.style.visibility = 'hidden';
+}
+
+</script>
+
+<style>
+    body {
+    font-family: Arial, sans-serif;
+    background-color: #f2f2f2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.login-container {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+}
+
+.logo {
+    max-width: 100px;
+    margin-bottom: 20px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group {
+    margin-bottom: 15px;
+    text-align: left;
+}
+
+label {
+    margin-bottom: 5px;
+}
+
+input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+button {
+    padding: 10px;
+    background-color: gray;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #303331;
+}
+
+small {
+    color: red;
+    visibility: hidden;
+}
+
+</style>
